@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  freelancer-server:
+    build: .
+    container_name: freelancer-server
+    network_mode: host
+    environment:
+      - SERVER_NAME=My Freelancer Server
+      - SERVER_DESCRIPTION=Dies ist ein automatisierter Freelancer-Server.
+      - SERVER_PASSWORD=geheimespasswort
+      - ALLOW_NEW_PLAYERS=1
+      - ENABLE_INTERNET=1
+      - PLAYER_CAN_FIGHT=1
+      - MAX_PLAYERS=16
+      - ISO_URL=
+    ports:
+      - "2302:2302/udp"
+    volumes:
+      - ./freelancer-data:/data
+#      - ./Freelancer.iso:/opt/freelancer/Freelancer.iso
+    networks:
+      macvlan_net:
+        ipv4_address: 192.168.178.210  # Die gewünschte IP-Adresse des Containers
+
+networks:
+  macvlan_net:
+    external: true
