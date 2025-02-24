@@ -91,3 +91,7 @@ xsetroot -solid grey &
 # Freelancer-Server starten
 cd "$FREELANCER_DIR/EXE"
 wine ./FLServer.exe /c &
+
+# Container am Leben halten – so kannst du reinschauen
+tail -f /dev/null
+
