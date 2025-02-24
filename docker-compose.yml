@@ -13,9 +13,10 @@ services:
       - ENABLE_INTERNET=1
       - PLAYER_CAN_FIGHT=1
       - MAX_PLAYERS=16
-      - ISO_URL=
+      - ISO_URL="" #url für den iso-download, falls local, siehe volumes!
     ports:
       - "2302:2302/udp"
+      - "6080:6080"
     volumes:
       - ./freelancer-data:/data
 #      - ./Freelancer.iso:/opt/freelancer/Freelancer.iso
@@ -25,4 +26,11 @@ services:
 
 networks:
   macvlan_net:
-    external: true
+    driver: macvlan
+    driver_opts:
+      parent: eth0 #anpassen!
+    ipam:
+      config:
+        - subnet: 192.168.178.0/24 #anpassen!
+          ip_range: 192.168.178.200/28 #range anpassen!
+          gateway: 192.168.178.1 #gateway anpassen!
