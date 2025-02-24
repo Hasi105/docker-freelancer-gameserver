@@ -16,6 +16,7 @@ This repository provides a Docker-based setup to run a Freelancer game server. I
 - Freelancer ISO: A legal copy of the Freelancer.iso installation file.
 
 ## Installation
+### Build on your own (now there is a package,too, see docker-compose.yml for more details)
 
 1. **Clone the Repository:**
 
