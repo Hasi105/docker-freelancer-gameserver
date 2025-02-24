@@ -18,6 +18,8 @@ RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y \
     novnc \
     websockify \
     winetricks \
+    p7zip-full \
+    cabextract \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && rm -rf /var/lib/apt/lists/*
 
@@ -30,25 +32,13 @@ RUN winetricks -q directplay riched30 vcrun6sp6
 # Workspace festlegen
 WORKDIR /opt/freelancer
 
-# Freelancer-Dateien hinzufügen
-#ADD freelancer.tar /opt/freelancer/
-
 # Start-Skript kopieren
 COPY start.sh /opt/freelancer/start.sh
 RUN chmod +x /opt/freelancer/start.sh
 
-#copy freelancer.iso
-#COPY Freelancer.iso /opt/freelancer/Freelancer.iso
-
 # Konfigurationsskript hinzufügen
 COPY server_config.sh /opt/freelancer/server_config.sh
 RUN chmod +x /opt/freelancer/server_config.sh
-
-#RUN mkdir /data
-# Deklariere das Volume
-#VOLUME ["/data"]
-# Arbeitsverzeichnis setzen
-#WORKDIR /opt/freelancer/Freelancer/EXE/
 
 # Port für den VNC-Webservice
 EXPOSE 6080
