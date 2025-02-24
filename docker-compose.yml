@@ -18,7 +18,7 @@ services:
       - "6080:6080"
     volumes:
       - ./freelancer-data:/data
-#      - ./Freelancer.iso:/opt/freelancer/Freelancer.iso
+      - ./Freelancer.iso:/opt/freelancer/Freelancer.iso
     networks:
       macvlan_net:
         ipv4_address: 192.168.178.210  # Die gewünschte IP-Adresse des Containers
@@ -31,5 +31,5 @@ networks:
     ipam:
       config:
         - subnet: 192.168.178.0/24 #anpassen!
-          ip_range: 192.168.178.200/28 #range anpassen!
+          ip_range: 192.168.178.192/28 #range anpassen!
           gateway: 192.168.178.1 #gateway anpassen!
