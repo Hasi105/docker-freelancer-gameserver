@@ -60,6 +60,9 @@ The server can be customized using environment variables defined in the docker-c
 - ISO_URL: (Default: "")
    - URL to download Freelancer.iso if not provided locally.
 
+
+# Best alter and use the docker-compose.yml of the repository with integrated macvlan-setup or alternately:
+
 **Example docker-compose.yml snippet:**
 
        environment:
