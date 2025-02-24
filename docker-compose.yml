@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   freelancer-server:
-    build: .
+    image: ghcr.io/silelmot/docker-freelancer-gameserver:latest
     container_name: freelancer-server
     environment:
       - SERVER_NAME=My Freelancer Server
