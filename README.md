@@ -19,7 +19,7 @@ This repository provides a Docker-based setup to run a Freelancer game server. I
 
 1. **Clone the Repository:**
 
-       git clone https://github.com/yourusername/freelancer-docker-server.git
+       git clone https://github.com/silelmot/docker-freelancer-gameserver.git
 
        cd docker-freelancer-gameserver
 
