@@ -4,7 +4,6 @@ services:
   freelancer-server:
     build: .
     container_name: freelancer-server
-    network_mode: host
     environment:
       - SERVER_NAME=My Freelancer Server
       - SERVER_DESCRIPTION=Dies ist ein automatisierter Freelancer-Server.
