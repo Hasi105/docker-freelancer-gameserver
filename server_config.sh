@@ -112,5 +112,5 @@ if [ $padding_size -gt 0 ]; then
   dd if=/dev/zero bs=1 count=$padding_size 2>/dev/null >> "$FL_SERVER_CFG"
 fi
 
-# Ausgabe zur Kontrolle
-#echo "FLServer.cfg wurde erstellt. Vorschau:"
+# (Optional) Ausgabe zur Kontrolle:
+# xxd "$FL_SERVER_CFG"
