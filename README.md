@@ -67,9 +67,9 @@ The server can be customized using environment variables defined in the docker-c
 ### Usage
 
   1. **Start the Server:**
-	  With the ISO:
-
-          docker run -d \
+	  - With the ISO:
+         ```
+         docker run -d \
             --name freelancer-server \
             -e SERVER_NAME="FL Server" \
             -e SERVER_DESCRIPTION="Test FL Server." \
@@ -86,11 +86,11 @@ The server can be customized using environment variables defined in the docker-c
             -v ./Ioncross:/opt/freelancer/Ioncross \
             -v ./Freelancer.iso:/opt/freelancer/Freelancer.iso \
             freelancer-ded
+         ```
           
-          
-          Or with the folder:
-
-          docker run -d \
+      - Or with the folder:
+         ```
+         docker run -d \
             --name freelancer-server \
             -e SERVER_NAME="FL Server" \
             -e SERVER_DESCRIPTION="Test FL Server." \
@@ -107,6 +107,7 @@ The server can be customized using environment variables defined in the docker-c
             -v ./Ioncross:/opt/freelancer/Ioncross \
             -v ./Freelancer/:/opt/freelancer/Freelancer/ \
             freelancer-ded
+         ```
 
   2. **Access noVNC Interface:**
 
