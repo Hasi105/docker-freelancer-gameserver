@@ -1,0 +1,15 @@
+<HTML>
+<HEAD>
+	<TITLE>Banned Players</TITLE>
+	<LINK REL="STYLESHEET" HREF="bannedplayerstable.css">
+</HEAD>
+<BODY>
+<H1>Banned Players</H1>
+<TABLE BORDER="0">
+<TR>
+	<TH>Player Folder</TH>
+	<TH>Name</TH>
+	<TH>Level</TH>
+	<TH>Banned Until</TH>
+	<TH>Ban Reason</TH>
+</TR>

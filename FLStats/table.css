@@ -1,0 +1,97 @@
+/* Style Sheet for FLstat v1.2 */
+
+/* table rows */
+TR {
+  background-color: #DDDDFF;
+}
+
+/* the very last table row  */
+TR.footer {
+  background-color: #BBBBFF;
+}
+
+/* characters that have been recently active */
+TR.active {
+  background-color: #BBBBFF;
+}
+
+/* characters that have been detect as cheaters */
+TR.suspect {
+  background-color: #FFBBFF;
+}
+
+/* table header cells (used for top table row)*/
+TH {
+  background-color: navy;
+  color: white;
+  font-family: sans-serif;
+  font-size: x-small;
+  font-weight: bold;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* table data cells */
+TD {
+  font-family: sans-serif;
+  font-size: x-small;
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+/* the rest of the styles define the table data cells for each column */
+TD.pos {
+  text-align: center;
+}
+
+TD.name {
+  text-align: left;
+}
+
+TD.group {
+  text-align: left;
+}
+
+TD.rank {
+  text-align: center;
+}
+
+TD.money {
+  text-align: center;
+}
+
+TD.kills {
+  text-align: center;
+}
+
+TD.time {
+  text-align: center;
+}
+
+TD.missions {
+  text-align: center;
+}
+
+TD.failed {
+  text-align: center;
+}
+
+TD.systems {
+  text-align: center;
+}
+
+TD.bases {
+  text-align: center;
+}
+
+TD.holes {
+  text-align: center;
+}
+
+TD.login {
+  text-align: left;
+}
+
+/* --- the end --- */

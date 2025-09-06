@@ -9,6 +9,8 @@ FREELANCER_DIR="/opt/freelancer/Freelancer"
 # Pfad zur ISO-Datei
 ISO_PATH="/opt/freelancer/Freelancer.iso"
 
+IONCROSS_DIR="/opt/freelancer/Ioncross"
+
 # Sicherstellen, dass /data existiert
 mkdir -p /data
 # Erforderliche übergeordnete Verzeichnisse erstellen
@@ -76,9 +78,12 @@ fi
 cd /opt/freelancer
 ./server_config.sh
 
+# Delete last display session
+rm /tmp/.X99-lock
+
 # Display-/VNC-Umgebung starten
-export DISPLAY=:1
-Xvfb $DISPLAY -screen 0 1024x768x16 &
+export DISPLAY=:99
+Xvfb $DISPLAY -screen 0 1600x900x16 &
 fluxbox &
 x11vnc -display $DISPLAY -bg -forever -nopw -quiet -rfbport 5909 &
 websockify --web=/usr/share/novnc/ --wrap-mode=ignore 0.0.0.0:6080 localhost:5909 &
@@ -89,8 +94,8 @@ sleep 2
 xsetroot -solid grey &
 
 # Freelancer-Server starten
-cd "$FREELANCER_DIR/EXE"
-wine ./FLServer.exe /c &
+cd "$IONCROSS_DIR"
+wine ./FLServerOperator.exe /c &
 
 # Container am Leben halten – so kannst du reinschauen
 tail -f /dev/null

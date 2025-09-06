@@ -1,0 +1,5 @@
+2579363392 = ge_s_scanner_base, ge_s_scanner_base
+2723858309 = ge_s_scanner_01, Scanner
+2186984325 = ge_s_scanner_02, Deep Scanner
+2723852165 = ge_s_scanner_03, ge_s_scanner_03
+2186953605 = ge_s_scanner_04, ge_s_scanner_04

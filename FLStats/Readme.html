@@ -1,0 +1,348 @@
+<HTML>
+<HEAD>
+	<TITLE>FLstat version 1.5 - Readme</TITLE>
+</HEAD>
+
+<BODY>
+<H1 ALIGN="CENTER">FLstat version 1.5</H1>
+<H3 ALIGN="CENTER">Freelancer Rankings for the Web</H3></P>
+
+<P ALIGN="CENTER">Copyright &copy; 2003-2006 Tim Rigden<P>
+
+<HR COLOR="NAVY">
+
+<H2>Contents</H2>
+
+<BLOCKQUOTE><B>
+1) <A HREF="#What">What is FLstat?</A><BR>
+2) <A HREF="#Why">Why would I want FLstat?</A><BR>
+3) <A HREF="#How">How do I use FLstat?</A><BR>
+4) <A HREF="#Custom">How do I customise how it looks?</A><BR>
+5) <A HREF="#Options">Advanced Options</A><BR>
+6) <A HREF="#Tips">Tips and Tricks</A><BR>
+7) <A HREF="#Source">Source Code</A><BR>
+8) <A HREF="#History">Revision History</A><BR>
+</B></BLOCKQUOTE>
+
+<HR COLOR="NAVY">
+
+<A NAME="License">
+<H2>License</H2>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:<P>
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.<P>
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<P>
+
+(This is the <A HREF="http://www.opensource.org/licenses/mit-license.html">MIT</A> style license)<P>
+
+<HR COLOR="NAVY">
+
+Credit to Jor &lt;flcodec&#64;jors.net&gt, who wrote "flcodec", from which I shamelessly
+pinched the code to decode player files;
+and Sherlog &lt;sherlog&#64;t-online.de&gt; for originally uncovering the algorithm.<P>
+
+<I>Any questions, problems or suggestions for further improvements,
+send an email to <B>flstat&#64;cryosphere.co.uk</B>.<BR>
+There is also the</I>
+<B><A HREF="http://www.cryosphere.f2s.com/Freelancer/globalstats.html">Global Player Rankings</A></B>
+<I>table, which can be joined by reading
+<A HREF="http://www.cryosphere.f2s.com/Freelancer/addserver.html">Add A Server</A>.</I><P>
+
+<HR COLOR="NAVY">
+
+<A NAME="What">
+<H3>1) What is FLstat?</H3>
+
+<A HREF="example.html"><IMG SRC="example.gif" ALIGN="RIGHT" WIDTH="345" HEIGHT="111"
+HSPACE="8" BORDER="0" ALT="Click here to see example..."></A><P>
+
+Written for the PC game <A HREF="http://www.microsoft.com/games/freelancer/" TARGET="_blank"
+TITLE="Microsoft Freelancer - Space Action/Adventure Game"><B>Freelancer</B></A>,
+FLstat is a non-interactive program that
+decodes the player files on a multiplayer server, and generates a ranking
+table in HTML. This HTML file can then be published on a web server for all
+to see. <B>Here is an <A HREF="example.html">example</A> of FLstat in action &gt;&gt;&gt;</B><P>
+
+<I>FLstat is not a MOD, and does not change any of the files used by Freelancer.
+This will only run on Freelancer servers, not clients.</I><P>
+
+<HR COLOR="NAVY">
+
+<A NAME="Why">
+<H3>2) Why would I want FLstat?</H3>
+
+A feature missing from Multiplayer Freelancer is the ability to see the stats
+that other players have got when they are not online. This tool displays all
+characters that have played on a server, whether they are online or not. The
+characters are sorted by Rank, then by Money, and then by number of Kills.<BR>
+<I>Since version v1.5, the sorting of characters can be changed.
+See the <A HREF="#Options"><b>-sort</b></A> option for details.</I><P>
+
+This is designed to encourage healthy competition amongst players, and it can
+even assist administrators in spotting cheats on their servers.
+However, this is tool is not specifically aimed at server administration
+- for a more complete admin tool, have a look at
+<B>Freelancer Server Operator</B>
+from <A HREF="http://www.ioncross.com/software/index.htm" TARGET="_blank">www.ioncross.com</A>.<P>
+
+<HR COLOR="NAVY">
+
+<A NAME="How">
+<H3>3) How do I use FLstat?</H3>
+
+<B>First <A HREF="http://www.cryosphere.f2s.com/Freelancer/flstat.html">check here</A> for the latest version.</B><BR>
+Extract the contents of the zip file to a directory anywhere on your server.
+(for example "C:\FLstat").
+Simply double-click on "update.cmd" to run the program, and a file called
+"flstat.html" will be created. If you wish, you may edit the second line
+in "update.cmd" to change the name and/or location of resulting HTML file.
+Then, all you need to do is schedule "update.cmd" to be executed once per day,
+or something.<P>
+
+<B>Windows 95/98/Me users</B>: you will have to rename "update.cmd" to "update.bat".<P>
+
+<B>Warning</B>: On servers with a large number of characters, this may take some
+considerable time to execute and will put significant load on the server, so
+schedule it for when the least number of players are on.
+Consider using the <b><A HREF="#Options">-nice</A></b> option to reduce the load on the server.<P>
+
+You can use a web server of your choice to publish this file on the Web.
+I found <A HREF="http://www.ritlabs.com/tinyweb" TARGET="_blank">TinyWeb</A> to be very simple and effective.<BR>
+If you want to run this from a different account or computer, have a look at the
+<b>-path</b> option in <A HREF="#Options">Advanced Options</A> below.<BR>
+Also see <A HREF="#Tips">Tips and Tricks</A>
+to see how you can automatically uploads the stats to another machine.<p>
+
+
+<HR COLOR="NAVY">
+
+<A NAME="Custom">
+<H3>4) How do I customise how it looks?</H3>
+
+You can edit "header.htt" and "footer.htt" to change or add additional content
+above and below the ranking table. You can also edit "table.css" to change the
+colours and style of the ranking table itself.<P>
+
+<B>Note:</B> After editing "header.htt" or "footer.htt", you will need to run "update.cmd"
+again to see the changes. Also, don't forget to copy/move the file "table.css"
+to the same place that you have "flstat.html"!<P>
+
+<HR COLOR="NAVY">
+
+<A NAME="Options">
+<H3>5) Advanced Options</H3>
+
+Specify any of these options below in the file "update.cmd". For Example:
+<BLOCKQUOTE>
+<CODE>FLstat.exe <b>-rank 25 -active 24</b> &gt; middle.txt<BR>
+copy /B header.htt+middle.txt+footer.htt flstat.html</CODE>
+</BLOCKQUOTE>
+
+<b>-top &lt;N&gt;</b> - Show only top <B>N</B> characters.<P>
+
+<b>-rank &lt;N&gt;</b> - Show only characters at rank <B>N</B> or higher.<P>
+
+<b>-days &lt;N&gt;</b> - Show only characters which have played within the last <B>N</B> days.<P>
+
+<b>-nice &lt;N&gt;</b> - Run with lower CPU usage, for example: <b>-nice 50</b>.
+    This is useful on servers with very many players, as it minimises the load. Default setting is <b>10</b>.<P>
+
+<b>-path &lt;dir&gt;</b> - Override the default location of the Multiplayer Accounts.<P>
+
+<BLOCKQUOTE>You might want to use this if you are running FLstat as a different user,
+or from a different machine. This must be the full path where the accounts are stored, for example:</BLOCKQUOTE>
+
+    <XMP>	-path "C:\My Documents\My Games\Freelancer\Accts\MultiPlayer"</XMP><P>
+
+<b>-active &lt;N&gt;</b> - Highlight characters that have logged in within the last <B>N</B> hours.<P>
+
+<BLOCKQUOTE>This is best set to a number of hours that is similar to the frequency that the
+page is updated. For example, if the page is update once per day, then use <b>-active 24</b>,
+but if it is updated every hour, then you could use <b>-active 1</b>.</BLOCKQUOTE><P>
+
+<b>-cheats &lt;N&gt;</b> - Highlight cheaters, where <B>N</B> is the sensitivity level.<P>
+
+<BLOCKQUOTE>The higher cheat sensitivity number <B>N</B>, the less sensitive the detection becomes.
+If you set this too high, then cheaters will go undetected, and if you set it too low then
+innocent players get unfairly branded as a cheat.
+<B>30</B> is the recommended value to catch most cheaters, where as <B>50</B> with only catch
+the really serious cheats. A value of <B>10</B> will probably catch all cheaters, but may also
+highlight someone who hasn't actually cheated. You should experiment with different values, and
+stick with the one that works best for you.
+</BLOCKQUOTE><P>
+
+<b>-sort &lt;key&gt;</b> - sort characters by <i>Rank</i> (default), <i>Kills</i>, <i>Money</i>, <i>Time</i> or <i>Login</i>.
+
+<BLOCKQUOTE>It is possible to call FLstat.exe multiple times in the "update.cmd" file, 
+each time with a different sort key. This means that you can publish different pages,
+each sorted by a different key. For example:
+<P>
+<BLOCKQUOTE><CODE>
+FLstat.exe <b>-sort Rank</b> > middle.txt<BR>
+copy /B header.htt+middle.txt+footer.htt <b>flstat-rank.html</b><BR>
+<BR>
+FLstat.exe <b>-sort Kills</b> > middle.txt<BR>
+copy /B header.htt+middle.txt+footer.htt <b>flstat-kills.html</b><BR>
+<BR>
+FLstat.exe <b>-sort Time</b> > middle.txt<BR>
+copy /B header.htt+middle.txt+footer.htt <b>flstat-time.html</b><BR>
+<BR>
+FLstat.exe <b>-sort Login</b> > middle.txt<BR>
+copy /B header.htt+middle.txt+footer.htt <b>flstat-login.html</b></CODE>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<b>-nofile</b> - prevent filenames of character files from appearing in the HTML code.
+
+<BLOCKQUOTE>If this option is <u>not</u> specified, then the character filenames
+will appear as comments in the HTML code. Some  admins find this a useful way to
+identify certain players who break the server rules.<BR>
+<BLOCKQUOTE>For example: <CODE><font color="green">&lt;!-- File: 23-41639410/0a-bafe861e.fl --&gt;</font></CODE>.</BLOCKQUOTE>
+<P>
+However, some servers have rules that allow players to have more than one character,
+and so this option can be specified to preserve the players privacy, and protect their secondary characters.
+</BLOCKQUOTE>
+
+<HR COLOR="NAVY">
+
+<A NAME="Tips">
+<H3>6) Tips and Tricks</H3>
+
+<UL>
+<LI> On small servers, where FLstat takes 1 second or less to run, you can
+	get away with scheduling it to run every hour or so. On servers that take
+	longer that 1 second, this is not advisable, as it will disrupt the game
+	for players. The <b>-nice</b> option can be used to reduce this problem.</LI>
+<P>
+<LI> On very large servers, with lots of character files, you can limit the number
+	shown by using options <b>-top</b>, <b>-rank</b> or <b>-days</b>. For example: -top 200 will only show
+	the top 200 characters, and -rank 25 will only display characters with a rank above 25.
+	The option -days 30 can be used to exclude all characters who haven't logged in within 30 days.
+	You can combine any or all of these options at the same time.</LI>
+<P>
+<LI> If you don't or can't run a webserver on the same machine as FLserver, you don't
+	have to manually upload the stats to your own webspace. The trick is to use a program
+	that lets you upload it from the command line, without requiring someone to type in a
+	username and password each time.
+	Have a look at the <A HREF="http://www.ncftp.com/" TARGET="_blank">NcFTP</A> client for Windows
+	(you may be able to find other alteratives). Then, add the command
+	"<A HREF="http://www.ncftpd.com/ncftp/doc/ncftpput.html" TARGET="_blank">ncftpput</A>"
+	in your "update.cmd". For example:
+
+    <XMP>	/path/to/NcFTP/ncftpput -a -f ftp.txt remote/path flstat.html </XMP>
+
+	This line will upload the file "flstat.html" to your ftp server (in ASCII mode),
+	into the directory "remote/path". The file "ftp.txt" contains the following lines:
+	<XMP>
+	host ftp.myhost.com
+	user myusername
+	pass mypassword</XMP>
+	<B>IMPORTANT:</B> Be very careful about your security - your password is stored on the computer here,
+	so you must make sure that no one can get to it!<P></LI>
+<P>
+<LI>
+    An alternative program for automating the upload of files to webservers is:
+    <A HREF="http://www.volny.cz/svopex/tinyuploader/tinyuploader.html" TARGET="_blank">TinyUploaderSE</A>.<P></LI>
+<P>
+<LI> <A HREF="http://www.ioncross.com/software/" TARGET="_blank">IONCROSS.COM</A> have a program called <B>Freelancer Server Operator</B>,
+	which provides a graphic front end to FLstat. This makes FLstat even easier to use, and has many other features too.</LI>
+<P>
+<LI>Web servers can be configured to compress web pages on the fly, using the Apache module
+<A HREF="http://www.schroepl.net/projekte/mod_gzip/" TARGET="_blank">mod_gzip</A>
+(or <A HREF="http://httpd.apache.org/docs-2.0/mod/mod_deflate.html" TARGET="_blank">mod_deflate</A>).<P>
+If you're using an ISP webspace and can't configure the webserver, then try the Perl CGI script
+<A HREF="http://www.schroepl.net/projekte/gzip_cnc/" TARGET="_blank">gzip_cnc</A>.
+</LI>
+<P>
+</UL>
+
+<HR COLOR="NAVY">
+
+<A NAME="Source">
+<H3>7) Source code</H3>
+
+The source code for this tool has been included, written in MS Visual C++ v6.0.
+The <A HREF="#License">license</A> above allows anyone to edit and release the code, as long as the
+original author is credited.<P>
+
+<HR COLOR="NAVY">
+
+<A NAME="History">
+<H3>8) Revision History</H3>
+
+<B>10th May, 2006 - v1.5</B> <BR>
+<UL>
+<LI> Added <b>-nofile</b> option to suppress &lt;!-- File: ... --&gt; comment in HTML</LI>
+<LI> Added <b>-sort</b> option: Rank (default), Kills, Money, Time, Login.</LI>
+<LI> Actual server name and capacity is embedded as HTML comment (for Global Rankings).</LI>
+<LI> Removed -pos option - column is always present.</LI>
+<LI> Runs by default with -nice option set to 10, unless specified otherwise.</LI>
+</UL>
+
+<B>25th July, 2004 - v1.4</B> <BR>
+<UL>
+<LI> Added support for Unicode characters in HTML output.</LI>
+<LI> Included Niwo's patch for reading decoded character files.</LI>
+</UL>
+
+<B>18th January, 2004 - v1.3</B> <BR>
+<UL>
+<LI> FLstat webpage moved to new address:
+<A HREF="http://www.cryosphere.f2s.com/Freelancer/flstat.html">http://www.cryosphere.f2s.com/Freelancer/flstat.html</A></LI>
+</UL>
+
+<B>25th September, 2003 - v1.2</B> <BR>
+<UL>
+<LI> Added <b>-active</b> option, to highlight players active in that last N hours. </LI>
+<LI> Added <b>-path</b> option, to manually override default location of player files. </LI>
+<LI> Added <b>-cheats</b> option, to cheat detection algorithm to highlight cheaters.</LI>
+<LI> Added <b>-nice</b> option, to reduce the CPU usage while processing characters. </LI>
+<LI> Added <A HREF="#Tips">info</A> on how to automate the upload of the stats to another server. </LI>
+<LI> Use of terms "<B>Today</B>" and "<B>Yesterday</B>" instead of date for recent logins. </LI>
+<LI> Slight modifications to "table.css", including descriptive comments. </LI>
+</UL>
+
+<B>24th July, 2003 - v1.1</B> <BR>
+<UL>
+<LI> Display of Money and Kills with comma-separated thousands: <B>$12,345,678</B> </LI>
+<LI> Display of login time/date to more readable format: <B>17:30:01 - 19 Jun 03</B></LI>
+<LI> Minor changes to template <B>header.htt</B> and style-sheet <B>table.css</B>. </LI>
+<LI> Added command line options: <B>-top N -rank N -days N -pos</B> </LI>
+<LI> Fixed problem with special characters in names: <B>&lt; &gt; &amp;</B> </LI>
+</UL>
+
+<B>7th July, 2003 - v1.0a</B> <BR>
+<UL>
+<LI> Excludes characters that have never actually logged on to the server. </LI>
+</UL>
+
+<B>6th July, 2003 - v1.0</B> <BR>
+<UL>
+<LI> Banned accounts and all characters within it are excluded. </LI>
+<LI> Fixed bug where a directory without a .fl file causes it to break. </LI>
+<LI> Finds path to "My Documents" itself, so no longer needed as argument. </LI>
+<LI> Expanded use of CSS to allow customisation of each individual field. </LI>
+<LI> Compiled with speed optimisations - now about twice as fast. </LI>
+<LI> Removed "Group" and "Failed Missions" columns. </LI>
+</UL>
+
+<B>29th June, 2003 - v0.9</B> <BR>
+<UL>
+<LI> First release to public domain. </LI>
+</UL>
+
+<HR COLOR="NAVY">
+</BODY>

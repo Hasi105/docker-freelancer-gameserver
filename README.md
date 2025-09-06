@@ -14,13 +14,15 @@ This repository provides a Docker-based setup to run a Freelancer game server. I
 - Docker Engine: Version 19.03 or higher.
 - Docker Compose: Version 1.25.0 or higher.
 - Freelancer ISO: A legal copy of the Freelancer.iso installation file.
+Or
+- Extracted and or altered `Freelancer` folder of the ISO-file 
 
 ## Installation
-### Build on your own (now there is a package,too, see docker-compose.yml for more details)
+### Build on your own (now there is a package,too, see dockerfile for more details)
 
 1. **Clone the Repository:**
 
-       git clone https://github.com/silelmot/docker-freelancer-gameserver.git
+       git clone https://github.com/Hasi105/docker-freelancer-gameserver.git
 
        cd docker-freelancer-gameserver
 
@@ -30,7 +32,7 @@ This repository provides a Docker-based setup to run a Freelancer game server. I
 
 3. **Build the Docker Image:**
 
-       docker-compose build
+       docker build . -t freelancer-ded
 
 ## Configuration
 
@@ -62,66 +64,55 @@ The server can be customized using environment variables defined in the docker-c
    - URL to download Freelancer.iso if not provided locally.
 
 
-# Best alter and use the docker-compose.yml of the repository with integrated macvlan-setup or alternately:
-
-**Example docker-compose.yml snippet:**
-
-       environment:
-         - SERVER_NAME=MyCustomFreelancerServer
-         - SERVER_DESCRIPTION=Welcome to my custom server!
-         - SERVER_PASSWORD=secretpassword
-         - ALLOW_NEW_PLAYERS=1
-         - INTERNET_ACCESS=1
-         - PVP_ENABLED=1
-         - MAX_PLAYERS=32
-         - ISO_URL=https://example.com/Freelancer.iso
-
-## Network Setup with Macvlan
-
-To ensure that the Freelancer server is accessible on your local network and can receive broadcast packets, it's necessary to use the macvlan network driver. This allows the container to appear as a physical device on your network.
-### Why Macvlan?
-
-Broadcast Support: The Freelancer server relies on broadcast packets for discovery and communication, which standard Docker networking does not support.
-Network Isolation: Macvlan provides better isolation and performance by assigning a unique MAC address to the container.
-
-#### Setting Up Macvlan
-
-  1. **Create a Macvlan Network:**
-
-     Replace eth0 with your host network interface.
-
-         docker network create -d macvlan \
-           --subnet=192.168.1.0/24 \
-           --gateway=192.168.1.1 \
-           -o parent=eth0 \
-           freelancer_macvlan
-
-  2. **Modify docker-compose.yml:**
-    
-     Use the created macvlan network in your docker-compose.yml.
-
-         networks:
-           default:
-             external:
-               name: freelancer_macvlan
-
-   3. **Update Network Settings:**
-     
-      Ensure the IP range and gateway match your network configuration.
-
-**Note:** Macvlan networks may not be able to communicate with the host network directly. You might need to configure additional routing if required.
-
 ### Usage
 
   1. **Start the Server:**
+	  With the ISO:
 
-          docker-compose up -d
+          docker run -d \
+            --name freelancer-server \
+            -e SERVER_NAME="FL Server" \
+            -e SERVER_DESCRIPTION="Test FL Server." \
+            -e SERVER_PASSWORD="testpw" \
+            -e ALLOW_NEW_PLAYERS="1" \
+            -e ENABLE_INTERNET="1" \
+            -e PLAYER_CAN_FIGHT="0" \
+            -e MAX_PLAYERS="30" \
+            -e ISO_URL="" \
+            -p 2302:2302/udp \
+            -p 6080:6080 \
+            -v ./freelancer-data:/data \
+            -v ./FLStats:/root/.wine/drive_c/FLStats \
+            -v ./Ioncross:/opt/freelancer/Ioncross \
+            -v ./Freelancer.iso:/opt/freelancer/Freelancer.iso \
+            freelancer-ded
+          
+          
+          Or with the folder:
+
+          docker run -d \
+            --name freelancer-server \
+            -e SERVER_NAME="FL Server" \
+            -e SERVER_DESCRIPTION="Test FL Server." \
+            -e SERVER_PASSWORD="testpw" \
+            -e ALLOW_NEW_PLAYERS="1" \
+            -e ENABLE_INTERNET="1" \
+            -e PLAYER_CAN_FIGHT="0" \
+            -e MAX_PLAYERS="30" \
+            -e ISO_URL="" \
+            -p 2302:2302/udp \
+            -p 6080:6080 \
+            -v ./freelancer-data:/data \
+            -v ./FLStats:/root/.wine/drive_c/FLStats \
+            -v ./Ioncross:/opt/freelancer/Ioncross \
+            -v ./Freelancer/:/opt/freelancer/Freelancer/ \
+            freelancer-ded
 
   2. **Access noVNC Interface:**
 
      Open your web browser and navigate to http://<container_ip>:6080 to access the graphical interface.
 
-  4. **Connect to the Server:**
+  3. **Connect to the Server:**
      - Launch Freelancer on your client machine.
      - Search for your server using the SERVER_NAME you configured.
      - Join and enjoy the game!
@@ -129,7 +120,6 @@ Network Isolation: Macvlan provides better isolation and performance by assignin
 # Troubleshooting
 
 - Server Not Visible:
-   - Ensure that the macvlan network is correctly configured.
    - Check firewall settings to ensure necessary ports are open (2302 for Freelancer, 6080 for noVNC).
 
 - Cannot Access noVNC Interface:

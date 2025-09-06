@@ -1,0 +1,14 @@
+<HTML>
+<HEAD>
+	<TITLE>PLAYERS ONLINE</TITLE>
+	<LINK REL="STYLESHEET" HREF="playersonlinetable.css">
+</HEAD>
+<BODY>
+<H1>Players Online</H1>
+<TABLE BORDER="0">
+<TR>
+	<TH ALIGN="LEFT">Name</TH>
+	<TH>Level</TH>
+	<TH>System</TH>
+	<TH>Ship</TH>
+</TR>
